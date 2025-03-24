@@ -1,23 +1,36 @@
-package com.authorize.userauthentication.models;
+package com.authorize.userauthentication.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
-@Entity(name = "users")
-public class Users {
+@Data
+@Entity
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(nullable = false, unique = true)
+    private Long id;
     private String username;
-    @Column(nullable = false)
     private String password;
 
-    public int getId() {
+    public User() {}
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(Long id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -35,14 +48,5 @@ public class Users {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "Users{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
     }
 }

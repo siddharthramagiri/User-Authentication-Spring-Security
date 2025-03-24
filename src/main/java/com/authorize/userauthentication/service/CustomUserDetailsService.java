@@ -1,30 +1,29 @@
 package com.authorize.userauthentication.service;
 
-import com.authorize.userauthentication.models.UserPrincipal;
-import com.authorize.userauthentication.models.Users;
+import com.authorize.userauthentication.entity.User;
 import com.authorize.userauthentication.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
+import java.util.Objects;
 
-@Service
-public class MyUserDetailsService implements UserDetailsService {
+@Component
+public class CustomUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    public CustomUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users user = userRepository.findByUsername(username);
-
-        if(user == null) {
+        User user = userRepository.findByUsername(username);
+        if(Objects.isNull(user)) {
             System.out.println("USER NOT FOUND");
             throw new UsernameNotFoundException("USER NOT FOUND");
         }
-
-        return new UserPrincipal(user);
+        return new CustomUserDetails(user);
     }
 }

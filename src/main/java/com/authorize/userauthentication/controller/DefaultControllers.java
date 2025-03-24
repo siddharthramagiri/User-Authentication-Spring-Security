@@ -7,10 +7,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping
-public class ApplicationController {
+public class DefaultControllers {
 
     @GetMapping("/")
-    public static String Empty() {
-        return "Empty Page routing to ('/') ";
+    public String home() {
+        return "Page Opened Route ('/')";
+    }
+
+    @GetMapping("/products")
+    public String products() {
+        return "Page Route ('/products')";
     }
 }

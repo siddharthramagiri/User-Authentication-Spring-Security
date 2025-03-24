@@ -1,5 +1,6 @@
-package com.authorize.userauthentication.models;
+package com.authorize.userauthentication.service;
 
+import com.authorize.userauthentication.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,10 +8,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-public class UserPrincipal implements UserDetails {
 
-    private Users user;
-    public UserPrincipal(Users user) {
+public class CustomUserDetails implements UserDetails {
+
+    private final User user;
+    public CustomUserDetails(User user) {
         this.user = user;
     }
 
